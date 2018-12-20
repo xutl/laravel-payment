@@ -9,6 +9,8 @@ namespace XuTL\Payment;
 
 use Closure;
 use InvalidArgumentException;
+use XuTL\Payment\Channels\Alipay;
+use XuTL\Payment\Channels\Wechat;
 
 /**
  * 支付渠道管理
@@ -107,6 +109,41 @@ class PaymentManage
         } else {
             throw new InvalidArgumentException("The [{$config['channel']}] is not supported.");
         }
+    }
+
+    /**
+     * 创建 支付宝支付 渠道
+     * @param array $config
+     * @return Alipay
+     */
+    public function createAlipayChannel(array $config)
+    {
+        return new Alipay([
+            'endpoint' => $config['endpoint'],
+            'accessId' => $config['access_id'],
+            'accessKey' => $config['access_key'],
+            'securityToken' => $config['securityToken'] ?? null,
+        ]);
+    }
+
+    /**
+     * 创建 微信支付 渠道
+     * @param array $config
+     * @return Wechat
+     */
+    public function createWechatChannel(array $config)
+    {
+        return new Wechat([
+            'endpoint' => $config['endpoint'] ?? 'https://api.mch.weixin.qq.com',
+            'appId' => $config['app_id'],
+            'apiKey' => $config['api_key'],
+            'mchId' => $config['mch_id'],
+            'privateKey' => $config['private_key'],
+            'publicKey' => $config['public_key'],
+            'timeout' => $config['timeout'],
+            'sslCa' => $config['ssl_ca'],
+            'signType' => $config['signType'] ?? Wechat::SIGNATURE_METHOD_SHA256
+        ]);
     }
 
     /**

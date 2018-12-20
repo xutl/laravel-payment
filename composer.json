@@ -8,7 +8,12 @@
   "type": "library",
   "license": "MIT",
   "require": {
+    "php": ">=7.0",
+    "ext-openssl": "*",
+    "ext-simplexml": "*",
     "ext-json": "*",
+    "ext-dom": "*",
+    "ext-libxml": "*",
     "guzzlehttp/guzzle": "^6.3"
   },
   "autoload": {
