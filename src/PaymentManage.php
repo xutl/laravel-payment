@@ -11,7 +11,7 @@ use Closure;
 use InvalidArgumentException;
 
 /**
- * Class PaymentManage
+ * 支付渠道管理
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -50,7 +50,7 @@ class PaymentManage
     }
 
     /**
-     * Get the aliyun service configuration.
+     * 获取支付渠道配置
      *
      * @param  string $name
      * @return array
@@ -61,10 +61,10 @@ class PaymentManage
     }
 
     /**
-     * Attempt to get the disk from the local cache.
+     * 获取支付渠道实例
      *
      * @param  string $name
-     * @return AliyunInterface
+     * @return ChannelInterface
      */
     public function get($name)
     {
@@ -72,7 +72,7 @@ class PaymentManage
     }
 
     /**
-     * Set the given service instance.
+     * 设置支付渠道实例
      *
      * @param  string $name
      * @param  mixed $service
@@ -85,10 +85,10 @@ class PaymentManage
     }
 
     /**
-     * Resolve the given disk.
+     * 解析给定的支付渠道
      *
      * @param  string $name
-     * @return AliyunInterface
+     * @return ChannelInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -96,11 +96,11 @@ class PaymentManage
     {
         $config = $this->getConfig($name);
 
-        if (isset($this->customCreators[$config['driver']])) {
+        if (isset($this->customCreators[$config['channel']])) {
             return $this->callCustomCreator($config);
         }
 
-        $driverMethod = 'create' . ucfirst($config['channel']) . 'Service';
+        $driverMethod = 'create' . ucfirst($config['channel']) . 'Channel';
 
         if (method_exists($this, $driverMethod)) {
             return $this->{$driverMethod}($config);
@@ -110,7 +110,7 @@ class PaymentManage
     }
 
     /**
-     * Register a custom driver creator Closure.
+     * Register a custom channel creator Closure.
      *
      * @param  string $driver
      * @param  \Closure $callback
@@ -123,10 +123,10 @@ class PaymentManage
     }
 
     /**
-     * Call a custom driver creator.
+     * Call a custom channel creator.
      *
      * @param  array $config
-     * @return AliyunInterface
+     * @return ChannelInterface
      */
     protected function callCustomCreator(array $config)
     {
