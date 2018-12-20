@@ -1,0 +1,33 @@
+{
+  "name": "xutl/laravel-payment",
+  "description": "This is a Laravel expansion for the Payment.",
+  "keywords": [
+    "laravel",
+    "payment"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "XuTL\\Payment\\": "src"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "laravel": {
+      "providers": [
+        "XuTL\\Payment\\PaymentServiceProvider"
+      ],
+      "aliases": {
+        "Payment": "XuTL\\Payment\\Payment"
+      }
+    }
+  },
+  "prefer-stable": true
+}
